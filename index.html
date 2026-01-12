@@ -2,135 +2,141 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<title>AIpakai.id – AI Gratis Untuk Semua</title>
+<title>AIpakai.id – AI Hub Gratis Indonesia</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
-body {
-  font-family: Arial, sans-serif;
-  background:#f4f6f8;
-  margin:0;
-  padding:20px;
+:root{
+  --primary:#2563eb;
+  --bg:#f4f6f8;
+  --card:#ffffff;
+  --text:#1f2937;
 }
-.container {
-  max-width:800px;
-  background:#fff;
-  margin:auto;
-  padding:20px;
-  border-radius:8px;
-  box-shadow:0 0 10px rgba(0,0,0,0.1);
-}
-h1 {
-  text-align:center;
-}
-select, textarea, button {
-  width:100%;
-  padding:10px;
-  margin-top:10px;
-  font-size:16px;
-}
-button {
-  background:#2563eb;
-  color:white;
-  border:none;
-  border-radius:5px;
-  cursor:pointer;
-}
-button:hover {
-  background:#1e40af;
-}
-.output {
-  margin-top:20px;
-}
-footer {
-  text-align:center;
-  margin-top:20px;
-  font-size:12px;
-  color:#666;
-}
+body{margin:0;font-family:Inter,Arial,sans-serif;background:var(--bg);color:var(--text)}
+.container{max-width:1100px;margin:auto;padding:20px}
+header{text-align:center;margin-bottom:30px}
+header h1{margin:0;font-size:28px}
+header p{color:#555}
+.card{background:var(--card);border-radius:12px;padding:20px;box-shadow:0 10px 25px rgba(0,0,0,.08)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px}
+label{font-weight:600;margin-top:10px;display:block}
+select,textarea,button,input{width:100%;padding:12px;margin-top:6px;border-radius:8px;border:1px solid #ccc;font-size:15px}
+button{background:var(--primary);color:#fff;border:none;cursor:pointer;font-weight:600}
+button:hover{opacity:.9}
+.output textarea{min-height:220px}
+.badge{display:inline-block;background:#e5edff;color:#1d4ed8;padding:4px 10px;border-radius:20px;font-size:12px;margin-right:5px}
+footer{text-align:center;margin:40px 0 20px;font-size:12px;color:#666}
+.copy{margin-top:10px;background:#16a34a}
 </style>
 </head>
-
 <body>
-
 <div class="container">
-<h1>AI Gratis – Tinggal Pilih & Pakai</h1>
+<header>
+  <h1>AIpakai.id</h1>
+  <p>AI Hub Gratis • Prompt Generator Lengkap • Tanpa Login • Tanpa API</p>
+  <span class="badge">Gambar</span><span class="badge">Video</span><span class="badge">Dokumen</span><span class="badge">Foto</span><span class="badge">Audio</span>
+</header>
 
-<label>Kategori Utama</label>
-<select id="kategori"></select>
+<div class="card">
+<div class="grid">
+  <div>
+    <label>Kategori Utama</label>
+    <select id="kategori"></select>
 
-<label>Jenis Output</label>
-<select id="subkategori"></select>
+    <label>Jenis Output</label>
+    <select id="subkategori"></select>
 
-<label>Jelaskan Kebutuhan Kamu</label>
-<textarea id="inputUser" rows="4" placeholder="Contoh: laporan kegiatan bulan Januari untuk pimpinan..."></textarea>
+    <label>Tujuan / Platform</label>
+    <select id="platform">
+      <option>Umum</option>
+      <option>TikTok / Reels</option>
+      <option>YouTube</option>
+      <option>Instagram</option>
+      <option>Website</option>
+      <option>Dokumen Resmi</option>
+    </select>
 
-<label>Gaya / Style</label>
-<select id="style">
-  <option>Formal</option>
-  <option>Santai</option>
-  <option>Profesional</option>
-  <option>Sederhana</option>
-  <option>Detail</option>
-</select>
+    <label>Gaya / Style</label>
+    <select id="style">
+      <option>Profesional</option>
+      <option>Formal</option>
+      <option>Santai</option>
+      <option>Detail</option>
+      <option>Ringkas</option>
+    </select>
 
-<button onclick="generatePrompt()">Buat Prompt AI</button>
+    <label>Bahasa</label>
+    <select id="bahasa">
+      <option>Bahasa Indonesia</option>
+      <option>English</option>
+    </select>
+  </div>
 
-<div class="output">
-<label>Prompt Siap Pakai</label>
-<textarea id="hasil" rows="8"></textarea>
+  <div>
+    <label>Deskripsi Kebutuhan</label>
+    <textarea id="inputUser" placeholder="Contoh: buat laporan kegiatan kecamatan bulan Januari untuk pimpinan, formal, siap cetak"></textarea>
+
+    <label>Prompt Siap Pakai</label>
+    <div class="output">
+      <textarea id="hasil"></textarea>
+      <button class="copy" onclick="copyPrompt()">Copy Prompt</button>
+    </div>
+  </div>
 </div>
 
+<button onclick="generatePrompt()">Generate Prompt AI</button>
 </div>
 
 <footer>
-© 2026 AIpakai.id – Gratis & Bebas Digunakan
+© 2026 AIpakai.id • Edukasi & Produktivitas AI Indonesia
 </footer>
+</div>
 
 <script>
 const data = {
-  "Gambar": ["Ilustrasi", "Foto realistis", "Desain grafis", "Logo", "Poster"],
-  "Video": ["Video pendek", "Video promosi", "Video edukasi", "Storytelling"],
-  "Dokumen": ["Laporan", "Proposal", "Surat resmi", "Artikel", "CV"],
-  "Foto Editing": ["Restorasi foto", "Perjelas foto", "Hapus background"],
-  "Audio": ["Voice over", "Narasi", "Script podcast"],
-  "Media Sosial": ["Caption", "Script video", "Konten viral"],
-  "Bisnis": ["Ide bisnis", "Nama brand", "Copywriting"],
-  "Edukasi": ["Ringkasan materi", "Soal latihan", "Modul belajar"],
-  "Coding": ["Generate kode", "Debug kode", "Penjelasan kode"]
+  "Gambar": ["Ilustrasi","Foto Realistis","Logo","Poster","Karakter","Background","Mockup Produk"],
+  "Video": ["Video Pendek","Video Promosi","Video Edukasi","Storytelling","Cinematic"],
+  "Dokumen": ["Laporan","Proposal","Surat Resmi","Artikel","CV","SOP","Notulen"],
+  "Foto Editing": ["Restorasi Foto","Perjelas Foto","Hapus Background","Perbaiki Wajah","Perbaiki Warna"],
+  "Audio": ["Voice Over","Narasi","Script Podcast","Lirik Lagu"],
+  "Media Sosial": ["Caption","Hook Konten","Script Video","Konten Viral"],
+  "Bisnis": ["Ide Bisnis","Nama Brand","Copywriting","Email Profesional","Analisis SWOT"],
+  "Edukasi": ["Ringkasan Materi","Soal & Jawaban","Modul Belajar","Presentasi"],
+  "Coding": ["Generate Kode","Debug Kode","Penjelasan Kode"]
 };
 
-const kategori = document.getElementById("kategori");
-const subkategori = document.getElementById("subkategori");
+const kategori = document.getElementById('kategori');
+const subkategori = document.getElementById('subkategori');
 
-for (let k in data) {
-  kategori.innerHTML += `<option value="${k}">${k}</option>`;
+for (let k in data) kategori.innerHTML += `<option>${k}</option>`;
+
+function updateSub(){
+  subkategori.innerHTML = '';
+  data[kategori.value].forEach(v=>subkategori.innerHTML+=`<option>${v}</option>`);
 }
-
-function updateSub() {
-  subkategori.innerHTML = "";
-  data[kategori.value].forEach(item => {
-    subkategori.innerHTML += `<option value="${item}">${item}</option>`;
-  });
-}
-
-kategori.addEventListener("change", updateSub);
+kategori.addEventListener('change', updateSub);
 updateSub();
 
-function generatePrompt() {
-  const hasil = `
-Anda adalah AI profesional ahli di bidang ${kategori.value}.
-Tugas Anda adalah membuat ${subkategori.value}.
+function generatePrompt(){
+  const prompt = `Anda adalah AI profesional ahli dalam kategori ${kategori.value}.
 
-Kebutuhan pengguna:
-${document.getElementById("inputUser").value}
+Tugas utama:
+Buatkan ${subkategori.value} untuk kebutuhan berikut:
+${inputUser.value}
 
-Gaya penulisan: ${document.getElementById("style").value}
+Detail tambahan:
+- Platform/Tujuan: ${platform.value}
+- Gaya: ${style.value}
+- Bahasa: ${bahasa.value}
 
-Buat hasil yang rapi, jelas, dan siap digunakan tanpa revisi.
-  `;
-  document.getElementById("hasil").value = hasil.trim();
+Pastikan hasil berkualitas tinggi, rapi, jelas, dan siap langsung digunakan tanpa revisi.`;
+  hasil.value = prompt;
+}
+
+function copyPrompt(){
+  hasil.select();
+  document.execCommand('copy');
+  alert('Prompt berhasil disalin!');
 }
 </script>
-
 </body>
 </html>
