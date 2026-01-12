@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>PromptKerja.id – AI Prompt Generator Gratis</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body { font-family: Arial, sans-serif; background:#f5f5f5; padding:20px; }
+    .container { max-width:900px; margin:auto; background:#fff; padding:20px; border-radius:8px; }
+    h1 { margin-bottom:5px; }
+    select, textarea, button { width:100%; padding:10px; margin-top:10px; }
+    button { background:#2c7be5; color:#fff; border:none; border-radius:5px; cursor:pointer; }
+    pre { background:#eee; padding:15px; white-space:pre-wrap; }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>PromptKerja.id</h1>
+  <p>Generator Prompt AI Gratis untuk Semua Profesi (Tanpa Login)</p>
+
+  <label>Profesi</label>
+  <select id="profession">
+    <option>ASN</option>
+    <option>Guru</option>
+    <option>UMKM</option>
+    <option>Konten Kreator</option>
+    <option>Freelancer</option>
+    <option>HR / Recruiter</option>
+    <option>Mahasiswa</option>
+  </select>
+
+  <label>Jenis Dokumen / Output</label>
+  <select id="type">
+    <option>Laporan</option>
+    <option>Proposal</option>
+    <option>Konten Sosial Media</option>
+    <option>Surat Resmi</option>
+    <option>Materi Presentasi</option>
+  </select>
+
+  <label>Gaya Bahasa</label>
+  <select id="style">
+    <option>Formal</option>
+    <option>Semi Formal</option>
+    <option>Santai Profesional</option>
+  </select>
+
+  <label>Topik / Deskripsi</label>
+  <textarea id="topic" placeholder="Tuliskan topik atau kebutuhan Anda..."></textarea>
+
+  <button onclick="generatePrompt()">Buat Prompt AI</button>
+
+  <h3>Prompt Siap Pakai</h3>
+  <pre id="output"></pre>
+</div>
+
+<script>
+function generatePrompt(){
+  const p = document.getElementById('profession').value;
+  const t = document.getElementById('type').value;
+  const s = document.getElementById('style').value;
+  const topic = document.getElementById('topic').value;
+
+  const prompt = `Anda adalah AI profesional.
+Buatkan ${t} untuk seorang ${p} dengan gaya bahasa ${s}.
+Topik utama: ${topic}.
+Gunakan struktur rapi, bahasa jelas, dan siap digunakan secara profesional.`;
+
+  document.getElementById('output').innerText = prompt;
+}
+</script>
+</body>
+</html>
